@@ -18,8 +18,7 @@ class FeedVC: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    @IBAction func signOutTapped(_ sender: Any) {
-        
+    func signOutTapped(_ sender: Any) {
         try! Auth.auth().signOut()
         let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
         print("Dhruw: Signed out from firebase. Keychain result: \(keychainResult)")

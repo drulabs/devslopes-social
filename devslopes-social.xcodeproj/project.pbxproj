@@ -20,6 +20,7 @@
 		F9039BE91F30B64100A8BFB0 /* FancyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9039BE81F30B64100A8BFB0 /* FancyField.swift */; };
 		F9039BEB1F30B79C00A8BFB0 /* FancyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9039BEA1F30B79C00A8BFB0 /* FancyButton.swift */; };
 		F9039BED1F317B1000A8BFB0 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9039BEC1F317B1000A8BFB0 /* FeedVC.swift */; };
+		F9039BF51F33C2D800A8BFB0 /* FancyCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9039BF41F33C2D800A8BFB0 /* FancyCircleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		F9039BE81F30B64100A8BFB0 /* FancyField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyField.swift; sourceTree = "<group>"; };
 		F9039BEA1F30B79C00A8BFB0 /* FancyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyButton.swift; sourceTree = "<group>"; };
 		F9039BEC1F317B1000A8BFB0 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
+		F9039BF41F33C2D800A8BFB0 /* FancyCircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyCircleView.swift; sourceTree = "<group>"; };
 		FD6726147AE515E292A717E5 /* Pods-devslopes-social.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devslopes-social.debug.xcconfig"; path = "Pods/Target Support Files/Pods-devslopes-social/Pods-devslopes-social.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,6 +122,7 @@
 				F9039BE61F30B48100A8BFB0 /* RoundButton.swift */,
 				F9039BE81F30B64100A8BFB0 /* FancyField.swift */,
 				F9039BEA1F30B79C00A8BFB0 /* FancyButton.swift */,
+				F9039BF41F33C2D800A8BFB0 /* FancyCircleView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				F9039BCD1F307B8300A8BFB0 /* SignInVC.swift in Sources */,
 				F9039BE71F30B48100A8BFB0 /* RoundButton.swift in Sources */,
 				F9039BEB1F30B79C00A8BFB0 /* FancyButton.swift in Sources */,
+				F9039BF51F33C2D800A8BFB0 /* FancyCircleView.swift in Sources */,
 				F9039BED1F317B1000A8BFB0 /* FeedVC.swift in Sources */,
 				F9039BCB1F307B8300A8BFB0 /* AppDelegate.swift in Sources */,
 				F9039BE21F30AFA500A8BFB0 /* FancyView.swift in Sources */,
