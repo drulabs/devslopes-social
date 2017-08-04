@@ -22,6 +22,7 @@
 		F9039BED1F317B1000A8BFB0 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9039BEC1F317B1000A8BFB0 /* FeedVC.swift */; };
 		F9039BF51F33C2D800A8BFB0 /* FancyCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9039BF41F33C2D800A8BFB0 /* FancyCircleView.swift */; };
 		F9039BF71F34560100A8BFB0 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9039BF61F34560100A8BFB0 /* FeedCell.swift */; };
+		F9039BFA1F34926100A8BFB0 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9039BF91F34926100A8BFB0 /* DataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		F9039BEC1F317B1000A8BFB0 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		F9039BF41F33C2D800A8BFB0 /* FancyCircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyCircleView.swift; sourceTree = "<group>"; };
 		F9039BF61F34560100A8BFB0 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		F9039BF91F34926100A8BFB0 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		FD6726147AE515E292A717E5 /* Pods-devslopes-social.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devslopes-social.debug.xcconfig"; path = "Pods/Target Support Files/Pods-devslopes-social/Pods-devslopes-social.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +98,7 @@
 		F9039BC91F307B8300A8BFB0 /* devslopes-social */ = {
 			isa = PBXGroup;
 			children = (
+				F9039BF81F34922E00A8BFB0 /* Services */,
 				F9039BE31F30B1AD00A8BFB0 /* Util */,
 				F9039BDE1F30856400A8BFB0 /* Model */,
 				F9039BDF1F30856E00A8BFB0 /* View */,
@@ -145,6 +148,14 @@
 				F9039BE41F30B1C000A8BFB0 /* Constants.swift */,
 			);
 			name = Util;
+			sourceTree = "<group>";
+		};
+		F9039BF81F34922E00A8BFB0 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F9039BF91F34926100A8BFB0 /* DataService.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +288,7 @@
 				F9039BCD1F307B8300A8BFB0 /* SignInVC.swift in Sources */,
 				F9039BE71F30B48100A8BFB0 /* RoundButton.swift in Sources */,
 				F9039BEB1F30B79C00A8BFB0 /* FancyButton.swift in Sources */,
+				F9039BFA1F34926100A8BFB0 /* DataService.swift in Sources */,
 				F9039BF51F33C2D800A8BFB0 /* FancyCircleView.swift in Sources */,
 				F9039BED1F317B1000A8BFB0 /* FeedVC.swift in Sources */,
 				F9039BCB1F307B8300A8BFB0 /* AppDelegate.swift in Sources */,
@@ -407,6 +419,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = AP6W85Z62P;
 				INFOPLIST_FILE = "devslopes-social/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.drulabs.devslopes-social";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -421,6 +434,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = AP6W85Z62P;
 				INFOPLIST_FILE = "devslopes-social/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.drulabs.devslopes-social";
 				PRODUCT_NAME = "$(TARGET_NAME)";

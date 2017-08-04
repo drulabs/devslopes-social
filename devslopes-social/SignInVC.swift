@@ -20,6 +20,9 @@ class SignInVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignInVC.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -46,14 +49,15 @@ class SignInVC: UIViewController {
         
     }
     
-    func firebaseAuth(_ crendential: AuthCredential){
-        Auth.auth().signIn(with: crendential) { (user, error) in
+    func firebaseAuth(_ credential: AuthCredential){
+        Auth.auth().signIn(with: credential) { (user, error) in
             if error != nil {
                 print("Dhruw: Unable to authenticate with facebook - \(String(describing: error))")
             } else {
                 print("Dhruw: successfully authenticated with firebase")
                 if let user = user {
-                    self.completeSignIn(id: user.uid)
+                    let userData = ["provider": credential.provider]
+                    self.completeSignIn(id: user.uid, userData: userData)
                 }
             }
         }
@@ -66,7 +70,8 @@ class SignInVC: UIViewController {
                 if error == nil {
                     print("Dhruw: email authenticated with firebase")
                     if let user = user {
-                        self.completeSignIn(id: user.uid)
+                        let userData = ["provider": user.providerID]
+                        self.completeSignIn(id: user.uid, userData: userData)
                     }
                 } else {
                     Auth.auth().createUser(withEmail: email, password: pwd) { (user, error) in
@@ -75,7 +80,8 @@ class SignInVC: UIViewController {
                         } else {
                             print("Dhruw: successfully created and authenticated with firebase using email")
                             if let user = user {
-                                self.completeSignIn(id: user.uid)
+                                let userData = ["provider": user.providerID]
+                                self.completeSignIn(id: user.uid, userData: userData)
                             }
                         }
                     }
@@ -84,10 +90,17 @@ class SignInVC: UIViewController {
         }
     }
     
-    func completeSignIn(id: String) {
+    func completeSignIn(id: String, userData: Dictionary<String, String>) {
+        
+        DataService.ds.createFirebaseUser(uid: id, userData: userData)
+        
         let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
         print("Dhruw: Keychain result save status: \(keychainResult)")
         performSegue(withIdentifier: "goToFeed", sender: nil)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
