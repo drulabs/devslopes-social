@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Firebase
 
 class FeedCell: UITableViewCell {
-
+    
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var usernameLbl: UILabel!
     @IBOutlet weak var feedImage: UIImageView!
@@ -23,10 +24,31 @@ class FeedCell: UITableViewCell {
         // Initialization code
     }
     
-    func configureCell(post: Post) {
+    func configureCell(post: Post, img: UIImage? = nil) {
         self.post = post
         self.caption.text = post.caption
         self.likesLbl.text = "\(post.likes)"
+        
+        if let img = img {
+            self.feedImage.image = img
+        } else {
+            let ref = Storage.storage().reference(forURL: post.imageUrl)
+            ref.getData(maxSize: 2 * 1024 * 1024, completion: { (data, error) in
+                
+                if error != nil {
+                    print("Dhruw: Unable to download image from firebase: \(String(describing: error))")
+                } else {
+                    print("Dhruw: Image downloaded from firebase")
+                    
+                    if let imageData = data {
+                        if let image = UIImage(data: imageData) {
+                            self.feedImage.image = image
+                            FeedVC.imageCache.setObject(image, forKey: self.post.imageUrl as NSString)
+                        }
+                    }
+                }
+            })
+        }
     }
-
+    
 }
