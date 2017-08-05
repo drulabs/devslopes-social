@@ -35,6 +35,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
         
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignInVC.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
         DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
                 
@@ -88,7 +91,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
     func postToFirebase(imageUrl: String) {
         let post: Dictionary<String, Any> = [
-            "captoin": captionField.text ?? "No caption provided",
+            "caption": captionField.text ?? "No caption provided",
             "image_url": imageUrl,
             "likes": 0
         ]
@@ -103,6 +106,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
         self.tableView.reloadData()
     }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
     
     @IBAction func postButtonTapped(_ sender: Any) {
         
@@ -121,6 +129,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             let imageUid = NSUUID().uuidString
             let imgMetadata = StorageMetadata()
             imgMetadata.contentType = "image/jpeg"
+            
+            dismissKeyboard()
             
             DataService.ds.REF_POST_PICS.child(imageUid).putData(imageData, metadata: imgMetadata) { (metadata, error) in
                 
