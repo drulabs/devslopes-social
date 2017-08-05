@@ -14,9 +14,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imageAdd: FancyCircleView!
+    @IBOutlet weak var captionField: FancyField!
     
     var posts = [Post]()
     var imagePicker: UIImagePickerController!
+    
+    var imageSelected = false
     
     // Image cache
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
@@ -34,6 +37,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
         DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                
+                self.posts = [] // clear the old array
+                
                 for post in snapshots {
                     if let postDict = post.value as? Dictionary<String, Any> {
                         let key = post.key
@@ -73,10 +79,64 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
         if let selectedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             imageAdd.image = selectedImage
+            imageSelected = true
         } else {
             print("Dhruw: invalid image selected")
         }
         imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    func postToFirebase(imageUrl: String) {
+        let post: Dictionary<String, Any> = [
+            "captoin": captionField.text ?? "No caption provided",
+            "image_url": imageUrl,
+            "likes": 0
+        ]
+        
+        let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
+        firebasePost.setValue(post)
+        
+        // clear the post params
+        self.imageSelected = false
+        self.captionField.text = ""
+        self.imageAdd.image = UIImage(named: "add-image")
+        
+        self.tableView.reloadData()
+    }
+    
+    @IBAction func postButtonTapped(_ sender: Any) {
+        
+        guard let caption = captionField.text, caption != "" else {
+            print("Dhruw: Caption can't be empty")
+            return
+        }
+        
+        guard let image = imageAdd.image, imageSelected else {
+            print("Dhruw: An image must be selected")
+            return
+        }
+        
+        if let imageData = UIImageJPEGRepresentation(image, 0.2) {
+            
+            let imageUid = NSUUID().uuidString
+            let imgMetadata = StorageMetadata()
+            imgMetadata.contentType = "image/jpeg"
+            
+            DataService.ds.REF_POST_PICS.child(imageUid).putData(imageData, metadata: imgMetadata) { (metadata, error) in
+                
+                if error != nil {
+                    print("Dhruw: unable to upload image to  firebase storage image")
+                } else {
+                    print("Dhruw: successfully uploaded image to firebase")
+                    
+                    if let downloadURL = metadata?.downloadURL()?.absoluteString {
+                        self.postToFirebase(imageUrl: downloadURL)
+                    }
+                }
+                
+            }
+        }
+        
     }
     
     @IBAction func addImageTapped(_ sender: Any) {
