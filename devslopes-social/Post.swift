@@ -14,6 +14,7 @@ class Post {
     private var _imageUrl: String!
     private var _likes: Int!
     private var _postKey: String!
+    private var _uploadedByUser: String!
     private var _postRef: DatabaseReference!
     
     var caption: String {
@@ -32,6 +33,10 @@ class Post {
         return _postKey
     }
     
+    var uploadedByUser: String {
+        return _uploadedByUser
+    }
+    
     init(caption: String, imageUrl: String, likes: Int) {
         self._caption = caption
         self._imageUrl = imageUrl
@@ -47,6 +52,10 @@ class Post {
         
         if let imageUrl = postData["image_url"] as? String {
             self._imageUrl = imageUrl
+        }
+        
+        if let uploadedByUser = postData["uploaded_by"] as? String {
+            self._uploadedByUser = uploadedByUser
         }
         
         if let likes = postData["likes"] as? Int{

@@ -11,7 +11,7 @@ import Firebase
 import SwiftKeychainWrapper
 
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imageAdd: FancyCircleView!
     @IBOutlet weak var captionField: FancyField!
@@ -21,12 +21,10 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
     var imageSelected = false
     
-    // Image cache
-    static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
@@ -54,7 +52,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             }
         })
     }
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -67,11 +65,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         let post = posts[indexPath.row]
         if let feedCell = tableView.dequeueReusableCell(withIdentifier: "feedCell") as? FeedCell {
             
-            if let image = FeedVC.imageCache.object(forKey: post.imageUrl as NSString) {
-                feedCell.configureCell(post: post, img: image)
-            } else {
-                feedCell.configureCell(post: post)
-            }
+            //            if let image = FeedVC.imageCache.object(forKey: post.imageUrl as NSString) {
+            //                feedCell.configureCell(post: post, img: image)
+            //            } else {
+            feedCell.configureCell(post: post)
+            // }
             return feedCell
         } else {
             return FeedCell()
@@ -93,6 +91,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         let post: Dictionary<String, Any> = [
             "caption": captionField.text ?? "No caption provided",
             "image_url": imageUrl,
+            "uploaded_by": KeychainWrapper.standard.string(forKey: KEY_UID)!,
             "likes": 0
         ]
         
@@ -110,7 +109,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     func dismissKeyboard() {
         view.endEditing(true)
     }
-
+    
     
     @IBAction func postButtonTapped(_ sender: Any) {
         
@@ -146,7 +145,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 
             }
         }
-        
     }
     
     @IBAction func addImageTapped(_ sender: Any) {

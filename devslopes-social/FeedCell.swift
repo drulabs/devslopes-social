@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SwiftKeychainWrapper
 
 class FeedCell: UITableViewCell {
     
@@ -17,11 +18,15 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var caption: UITextView!
     @IBOutlet weak var likesLbl: UILabel!
     @IBOutlet weak var likeImage: UIImageView!
+    @IBOutlet weak var deleteBtn: UIButton!
     
     
     var post: Post!
     
     var likesRef: DatabaseReference!
+    var uploaderRef: DatabaseReference!
+    
+    let currentUserProfileId = KeychainWrapper.standard.string(forKey: KEY_UID)
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,6 +42,7 @@ class FeedCell: UITableViewCell {
         self.likesLbl.text = "\(post.likes)"
         
         likesRef = DataService.ds.REF_CURRENT_USER.child("likes").child(self.post.postKey)
+        uploaderRef = DataService.ds.REF_USERS.child(self.post.uploadedByUser)
         
         if let img = img {
             self.feedImage.image = img
@@ -52,11 +58,17 @@ class FeedCell: UITableViewCell {
                     if let imageData = data {
                         if let image = UIImage(data: imageData) {
                             self.feedImage.image = image
-                            FeedVC.imageCache.setObject(image, forKey: self.post.imageUrl as NSString)
+//                            FeedVC.imageCache.setObject(image, forKey: self.post.imageUrl as NSString)
                         }
                     }
                 }
             })
+        }
+        
+        if post.uploadedByUser == currentUserProfileId {
+            deleteBtn.isHidden = false
+        } else {
+            deleteBtn.isHidden = true
         }
         
         likesRef.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -67,6 +79,29 @@ class FeedCell: UITableViewCell {
             }
         })
         
+        uploaderRef.observeSingleEvent(of: .value, with: {(snapshot) in
+            if let uploaderImg = snapshot.childSnapshot(forPath: "image_url").value as? String {
+                let storageRef = Storage.storage().reference(forURL: uploaderImg)
+                storageRef.getData(maxSize: 10 * 1024 * 1024, completion: {(data, error) in
+                    
+                    if error != nil {
+                        print("Dhruw: Unable to download profile image from firebase: \(String(describing: error))")
+                    } else {
+                        print("Dhruw: Profile image downloaded from firebase")
+                        
+                        if let profileImgData = data {
+                            if let actualImg = UIImage(data: profileImgData) {
+                                self.profileImage.image = actualImg
+                            }
+                        }
+                    }
+                })
+            }
+            
+            if let uploaderName = snapshot.childSnapshot(forPath: "display_name").value as? String {
+                self.usernameLbl.text = uploaderName
+            }
+        })
     }
     
     func likeTapped(sender: UITapGestureRecognizer) {
@@ -83,4 +118,12 @@ class FeedCell: UITableViewCell {
         })
     }
     
+    @IBAction func deleteTapped(_ sender: Any) {
+        if !deleteBtn.isHidden {
+            DataService.ds.REF_POSTS.child(post.postKey).removeValue()
+//            DataService.ds.REF_CURRENT_USER.child("likes").child(post.postKey).removeValue()
+        } else {
+            print("Dhruw: You can't delete others posts")
+        }
+    }
 }

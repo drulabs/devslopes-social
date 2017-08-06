@@ -24,6 +24,7 @@
 		F9039BF71F34560100A8BFB0 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9039BF61F34560100A8BFB0 /* FeedCell.swift */; };
 		F9039BFA1F34926100A8BFB0 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9039BF91F34926100A8BFB0 /* DataService.swift */; };
 		F9039BFC1F34B8BA00A8BFB0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9039BFB1F34B8BA00A8BFB0 /* Post.swift */; };
+		F9039BFE1F367BDC00A8BFB0 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9039BFD1F367BDC00A8BFB0 /* ProfileVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		F9039BF61F34560100A8BFB0 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		F9039BF91F34926100A8BFB0 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		F9039BFB1F34B8BA00A8BFB0 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		F9039BFD1F367BDC00A8BFB0 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		FD6726147AE515E292A717E5 /* Pods-devslopes-social.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devslopes-social.debug.xcconfig"; path = "Pods/Target Support Files/Pods-devslopes-social/Pods-devslopes-social.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,6 +143,7 @@
 			children = (
 				F9039BCC1F307B8300A8BFB0 /* SignInVC.swift */,
 				F9039BEC1F317B1000A8BFB0 /* FeedVC.swift */,
+				F9039BFD1F367BDC00A8BFB0 /* ProfileVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				F9039BEB1F30B79C00A8BFB0 /* FancyButton.swift in Sources */,
 				F9039BFA1F34926100A8BFB0 /* DataService.swift in Sources */,
 				F9039BF51F33C2D800A8BFB0 /* FancyCircleView.swift in Sources */,
+				F9039BFE1F367BDC00A8BFB0 /* ProfileVC.swift in Sources */,
 				F9039BED1F317B1000A8BFB0 /* FeedVC.swift in Sources */,
 				F9039BCB1F307B8300A8BFB0 /* AppDelegate.swift in Sources */,
 				F9039BE21F30AFA500A8BFB0 /* FancyView.swift in Sources */,

@@ -27,7 +27,7 @@ class SignInVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         if let _ = KeychainWrapper.standard.string(forKey: KEY_UID) {
-            performSegue(withIdentifier: "goToFeed", sender: nil)
+            performSegue(withIdentifier: "goToCreateProfile", sender: nil)
         }
     }
     
@@ -93,14 +93,21 @@ class SignInVC: UIViewController {
     func completeSignIn(id: String, userData: Dictionary<String, String>) {
         
         DataService.ds.createFirebaseUser(uid: id, userData: userData)
-        
-        let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
-        print("Dhruw: Keychain result save status: \(keychainResult)")
-        performSegue(withIdentifier: "goToFeed", sender: nil)
+        performSegue(withIdentifier: "goToCreateProfile", sender: id)
     }
     
     func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let identifier = segue.identifier {
+            if identifier == "goToCreateProfile" && sender != nil {
+                let destinationVC = segue.destination as? ProfileVC
+                destinationVC?.profileId = sender as! String
+            }
+        }
     }
 }
 
